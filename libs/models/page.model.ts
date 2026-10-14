@@ -1,5 +1,5 @@
 import type { RestrictedItem } from './restrictedItem.model';
-import { PAGES } from '../enums';
+import { type PAGES } from '../enums';
 
 export type IPage = Omit<RestrictedItem, 'name'> & {
   name: PAGES;

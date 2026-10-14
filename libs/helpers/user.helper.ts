@@ -1,5 +1,5 @@
-import { KeycloakTokenParsed } from 'keycloak-js';
-import { IUser } from '../models';
+import type { KeycloakTokenParsed } from 'keycloak-js';
+import type { IUser } from '../models';
 
 export function mapUser(token?: KeycloakTokenParsed): IUser {
   return {
@@ -8,5 +8,6 @@ export function mapUser(token?: KeycloakTokenParsed): IUser {
     name: token?.name,
     company: token?.organisation,
     access: token?.resource_access ?? {},
+    token: token,
   };
 }

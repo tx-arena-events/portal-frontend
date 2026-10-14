@@ -1,7 +1,6 @@
-import { RestrictedItem } from './restrictedItem.model';
-import { JSX } from 'react';
+import { type RestrictedItem } from './restrictedItem.model';
 
 export type IAction = RestrictedItem & {
-  element: JSX.Element;
+  // element: JSX.Element;
   value?: string;
 };

@@ -1,8 +1,9 @@
-import keycloak from 'keycloak-js';
-import { config } from '../config.ts';
+import keycloak, { type KeycloakTokenParsed } from 'keycloak-js';
+import { ENV } from '../env';
 
 class KeycloakServiceClass {
   private readonly instance: keycloak;
+  private initPromise: Promise<boolean> | null = null;
 
   constructor(url: string, realm: string, clientId: string) {
     this.instance = new keycloak({
@@ -10,23 +11,36 @@ class KeycloakServiceClass {
       realm,
       clientId,
     });
+    this.instance.onTokenExpired = () => {
+      this.instance.updateToken(600).catch(() => this.instance.login());
+    };
   }
 
   public init(): Promise<boolean> {
-    let initPromise: Promise<boolean> | null = null;
-    initPromise ??= this.instance.init({
+    this.initPromise ??= this.instance.init({
       onLoad: 'login-required',
       pkceMethod: 'S256',
     });
-    return initPromise;
+    return this.initPromise;
+  }
+
+  public get tokenParsed(): KeycloakTokenParsed | undefined {
+    return this.instance.tokenParsed;
+  }
+
+  public onTokenRefreshed(callback: () => void): () => void {
+    this.instance.onAuthRefreshSuccess = callback;
+    return () => {
+      this.instance.onAuthRefreshSuccess = undefined;
+    };
   }
 
   public login(): void {
-    this.instance.login();
+    void this.instance.login();
   }
 
   public logout(): void {
-    this.instance.logout();
+    void this.instance.logout();
   }
 
   public getToken(): string | undefined {
@@ -35,7 +49,7 @@ class KeycloakServiceClass {
 }
 
 export const KeycloakService = new KeycloakServiceClass(
-  config.ENV.getCentralIdp,
-  config.ENV.getRealm,
-  config.ENV.getClientId,
+  ENV.getCentralIdp,
+  ENV.getRealm,
+  ENV.getClientId,
 );

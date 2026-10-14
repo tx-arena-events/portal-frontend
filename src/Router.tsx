@@ -1,9 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import type { IPage } from '../libs/models';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { config, pageRegistry } from '../libs';
+import { config, pageRegistry, useAuth } from '../libs';
 
 export function Router() {
+  const { user } = useAuth();
+
   const renderPage = useCallback((page: IPage) => {
     const Component = pageRegistry[page.name];
     if (!Component) {
@@ -20,7 +22,7 @@ export function Router() {
   }, []);
 
   const allPages = useMemo(() => {
-    return config.ALL_PAGES.filter((page) => page?.allowTo?.() ?? true).map(
+    return config.ALL_PAGES.filter((page) => page?.allowTo?.(user) ?? true).map(
       renderPage,
     );
   }, []);

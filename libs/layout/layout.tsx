@@ -3,7 +3,6 @@ import { MobileHeader } from './mobile-header';
 import { Fragment, type PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Footer } from './footer.tsx';
-import { config } from '../config.ts';
 
 type Props = PropsWithChildren;
 
@@ -12,12 +11,26 @@ export function Layout(props: Props) {
 
   return (
     <>
-      <Header />
+      <Header user={[]} />
       <MobileHeader />
+      <Fragment key="RegistrationReviewNoteSection">
+        <Fragment key="RegistrationReview">
+          <Fragment key="RegistrationReviewContent" />
+        </Fragment>
+      </Fragment>
+      <Fragment key="RegistrationReviewOverlay" />
+      <Fragment key="RegistrationDeclinedOverlay" />
+
       <Fragment key="MainSearchOverlay" />
+
+      <Fragment key="If Page not Logout"></Fragment>
+
+      <Fragment key="If Page is Logout">
+        <Fragment key="Logout" />
+      </Fragment>
+
       <Outlet />
       {children}
-      {JSON.stringify(config, null, 4)}
       <Footer />
       <Fragment key="MainOverlay" />
       <Fragment key="MainNotify" />

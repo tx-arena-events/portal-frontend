@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
-import { config, I18nProvider, store } from '../libs';
+import { AuthProvider, config, I18nProvider, store } from '../libs';
 import { Provider } from 'react-redux';
 
 createRoot(document.getElementById('root')!).render(
@@ -13,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
         supportedLangs={config.languages}
         resources={config.languageResources}
       >
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </I18nProvider>
     </Provider>
   </StrictMode>,
