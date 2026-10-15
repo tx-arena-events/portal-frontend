@@ -1,15 +1,13 @@
 import { Fragment } from 'react';
+import { Logo } from './header/index.ts';
 
-type Props = {};
-
-export function MobileHeader(props: Props) {
-  const {} = props;
-
+export function MobileHeader() {
   return (
     <div className="mobileNav">
-      <Fragment key="Logo - Mobile" />
+      <Logo />
       <div className="mobileHeaderRight">
         <Fragment key="Search - Mobile" />
+        <Fragment key="MobileMenu" />
       </div>
     </div>
   );

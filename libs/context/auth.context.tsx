@@ -31,6 +31,7 @@ export function AuthProvider(props: Readonly<PropsWithChildren>) {
     KeycloakService.init()
       .then((authenticated) => {
         if (authenticated) sync();
+        else KeycloakService.login();
       })
       .catch((error: unknown) => {
         console.error('Keycloak initialization failed:', error);

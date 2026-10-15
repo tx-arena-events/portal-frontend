@@ -1,0 +1,3 @@
+export const MENU_ITEM_HINT_BACKGROUND = '#9AA9E2';
+
+export const MENU_ITEM_HINT_COLOR = '#2F6DBA';

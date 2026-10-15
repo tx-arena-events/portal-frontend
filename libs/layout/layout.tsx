@@ -1,17 +1,18 @@
+import { Fragment } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useDocumentTitle, useMenu } from '../hooks';
+import { Footer } from './footer.tsx';
 import { Header } from './header';
 import { MobileHeader } from './mobile-header';
-import { Fragment, type PropsWithChildren } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Footer } from './footer.tsx';
+import './layout.css';
 
-type Props = PropsWithChildren;
-
-export function Layout(props: Props) {
-  const { children } = props;
+export function Layout() {
+  useDocumentTitle('app:title');
+  const menu = useMenu();
 
   return (
     <>
-      <Header user={[]} />
+      <Header main={menu.main} />
       <MobileHeader />
       <Fragment key="RegistrationReviewNoteSection">
         <Fragment key="RegistrationReview">
@@ -30,8 +31,7 @@ export function Layout(props: Props) {
       </Fragment>
 
       <Outlet />
-      {children}
-      <Footer />
+      <Footer pages={menu.footer} />
       <Fragment key="MainOverlay" />
       <Fragment key="MainNotify" />
       <Fragment key="MenuInfo" />

@@ -17,8 +17,11 @@ class KeycloakServiceClass {
   }
 
   public init(): Promise<boolean> {
+    // check-sso verifies an existing session in a hidden iframe instead of
+    // redirecting to Keycloak on every full page load.
     this.initPromise ??= this.instance.init({
-      onLoad: 'login-required',
+      onLoad: 'check-sso',
+      silentCheckSsoRedirectUri: `${window.location.origin}/silent-check-sso.html`,
       pkceMethod: 'S256',
     });
     return this.initPromise;
@@ -41,10 +44,6 @@ class KeycloakServiceClass {
 
   public logout(): void {
     void this.instance.logout();
-  }
-
-  public getToken(): string | undefined {
-    return this.instance.token;
   }
 }
 

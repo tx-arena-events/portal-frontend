@@ -1,5 +1,7 @@
+import type { HINTS, PAGES } from '../enums';
+
 export interface Tree {
-  name: string;
-  hint?: string;
+  name: PAGES;
+  hint?: HINTS;
   children?: Array<Tree>;
 }

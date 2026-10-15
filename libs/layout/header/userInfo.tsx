@@ -1,13 +1,8 @@
-import { Box } from '@mui/material';
 import { Fragment } from 'react';
+import { Box } from '../../mui';
+import './user-info.css';
 
-type Props = {
-  pages: Array<string>;
-};
-
-export function UserInfo(props: Props) {
-  const { pages } = props;
-
+export function UserInfo() {
   return (
     <Box className="UserInfo">
       <Fragment key="UserAvatar" />

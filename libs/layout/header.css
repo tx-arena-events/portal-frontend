@@ -1,0 +1,44 @@
+header {
+  position: relative;
+  z-index: 10;
+  align-items: center;
+  justify-content: space-between;
+
+  .d-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .documentation {
+    margin-right: 16px;
+  }
+}
+
+@media (min-width: 1499px) {
+  .mobileNav {
+    display: none;
+  }
+}
+
+@media (max-width: 1499px) {
+  header {
+    display: none;
+  }
+
+  .mobileNav {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+  }
+
+  .mobileHeaderRight {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+}

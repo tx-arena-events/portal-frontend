@@ -18,5 +18,28 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@mui/material', '@mui/material/*'],
+              message: 'Import MUI components from libs/mui instead.',
+            },
+            {
+              group: ['@catena-x/portal-shared-components'],
+              message: 'Only libs/mui may use portal-shared-components.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['libs/mui/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': 'off',
+    },
   },
 ])
