@@ -1,0 +1,469 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "react",
+    "import",
+    "unicorn",
+    "oxc"
+  ],
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "public",
+    "*.d.ts"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "import/no-cycle": "error",
+    "import/no-self-import": "error",
+    "import/no-default-export": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "allow": "always",
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        "allow": [
+          "**/*.css",
+          "**/*.augment",
+          "**/augment"
+        ]
+      }
+    ],
+    "no-underscore-dangle": [
+      "warn",
+      {
+        "allow": [
+          "__ENV__"
+        ]
+      }
+    ],
+    "max-lines": [
+      "error",
+      {
+        "max": 200,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "error",
+    "react/jsx-key": "error",
+    "react/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "curly": [
+      "error",
+      "multi-line"
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error",
+          "warn"
+        ]
+      }
+    ],
+    "no-nested-ternary": "error",
+    "no-param-reassign": "error",
+    "max-params": [
+      "error",
+      4
+    ],
+    "max-depth": [
+      "error",
+      3
+    ],
+    "complexity": [
+      "warn",
+      10
+    ],
+    "typescript/no-explicit-any": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "oxc/no-barrel-file": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "libs/{enums,models}/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(helpers|config|services|redux|context|hooks|mui|components|layout|registry)(/|$)|^\\.\\./(helpers|config|services|redux|context|hooks|mui|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/{enums,models}/** must not import from helpers, config, services, redux, context, hooks, mui, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/helpers/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(config|services|redux|context|hooks|components|layout|registry)(/|$)|^\\.\\./(config|services|redux|context|hooks|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/helpers/** must not import from config, services, redux, context, hooks, components, layout, registry.",
+                "allowTypeImports": true
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/config/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(services|redux|context|hooks|mui|components|layout|registry)(/|$)|^\\.\\./(services|redux|context|hooks|mui|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/config/** must not import from services, redux, context, hooks, mui, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/{services,redux}/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(context|hooks|mui|components|layout|registry)(/|$)|^\\.\\./(context|hooks|mui|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/{services,redux}/** must not import from context, hooks, mui, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/context/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(hooks|mui|components|layout|registry)(/|$)|^\\.\\./(hooks|mui|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/context/** must not import from hooks, mui, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/hooks/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(mui|components|layout|registry)(/|$)|^\\.\\./(mui|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/hooks/** must not import from mui, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/mui/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(enums|models|env|helpers|config|locale|services|redux|context|hooks|components|layout|registry)(/|$)|^\\.\\./(enums|models|env|helpers|config|locale|services|redux|context|hooks|components|layout|registry)\\.ts$",
+                "message": "Layer violation: libs/mui/** must not import from enums, models, env, helpers, config, locale, services, redux, context, hooks, components, layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/components/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(layout|registry)(/|$)|^\\.\\./(layout|registry)\\.ts$",
+                "message": "Layer violation: libs/components/** must not import from layout, registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/layout/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+(registry)(/|$)|^\\.\\./(registry)\\.ts$",
+                "message": "Layer violation: libs/layout/** must not import from registry."
+              },
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/*.ts",
+        "libs/{locale,registry}/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(^|/)src(/|$)",
+                "message": "libs must not depend on the application (src)."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "src/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^(\\.\\./)+libs/",
+                "message": "src uses the public API of libs: import from \"../libs\" only."
+              },
+              {
+                "group": [
+                  "@mui/*",
+                  "@mui/**",
+                  "@catena-x/portal-shared-components"
+                ],
+                "message": "MUI and portal-shared-components are only used inside libs/mui. Import from libs/mui instead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "libs/{enums,models,helpers,config,services,redux,hooks,locale}/**",
+        "libs/*.ts"
+      ],
+      "rules": {
+        "react/jsx-filename-extension": [
+          "error",
+          {
+            "allow": "as-needed",
+            "extensions": [
+              ".jsx"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.augment.ts"
+      ],
+      "rules": {
+        "unicorn/require-module-specifiers": "off",
+        "import/no-empty-named-blocks": "off"
+      }
+    },
+    {
+      "files": [
+        "vite.config.ts"
+      ],
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    }
+  ]
+}

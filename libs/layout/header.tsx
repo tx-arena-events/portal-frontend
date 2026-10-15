@@ -12,13 +12,13 @@ type Props = {
   main: Array<Tree>;
 };
 
+function openDocumentation() {
+  window.open(DOCUMENTATION_URL, 'documentation', 'noreferrer');
+}
+
 export function Header(props: Props) {
   const { main } = props;
   const { t } = useI18n();
-
-  const openDocumentation = () => {
-    window.open(DOCUMENTATION_URL, 'documentation', 'noreferrer');
-  };
 
   return (
     <header>

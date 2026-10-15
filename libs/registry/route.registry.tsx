@@ -26,3 +26,13 @@ export function toRoutes(pages: Array<IPage>): Array<RouteObject> {
     .map(toRoute)
     .filter((route): route is RouteObject => route !== null);
 }
+
+function throwNotFound(): never {
+  throw new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+// Matches unknown URLs so their 404 is handled inside the layout.
+export const NOT_FOUND_ROUTE: RouteObject = {
+  path: '*',
+  loader: throwNotFound,
+};

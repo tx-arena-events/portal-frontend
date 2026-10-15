@@ -1,24 +1,8 @@
-import {
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-  type PropsWithChildren,
-} from 'react';
+import { useEffect, useMemo, useState, type PropsWithChildren } from 'react';
 import { hasRole, mapUser } from '../helpers';
 import type { IUser } from '../models';
 import { KeycloakService } from '../services';
-
-type AuthContextValue = {
-  user: IUser;
-  login: () => void;
-  logout: () => void;
-  hasRole: (client: string, role: string | Array<string>) => boolean;
-};
-
-export const authContext = createContext<AuthContextValue | undefined>(
-  undefined,
-);
+import { authContext, type AuthContextValue } from './auth.context';
 
 export function AuthProvider(props: Readonly<PropsWithChildren>) {
   const { children } = props;

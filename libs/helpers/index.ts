@@ -4,3 +4,4 @@ export * from './branding.helper';
 export * from './env.helper';
 export * from './menu.helper';
 export * from './menu-item.helper';
+export * from './i18n.helper';

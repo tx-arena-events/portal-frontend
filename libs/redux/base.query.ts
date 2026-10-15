@@ -1,9 +1,9 @@
 import {
-  BaseQueryApi,
-  BaseQueryFn,
-  FetchArgs,
+  type BaseQueryApi,
+  type BaseQueryFn,
+  type FetchArgs,
   fetchBaseQuery,
-  FetchBaseQueryError,
+  type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { ENV } from '../env';
 

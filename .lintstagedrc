@@ -1,5 +1,5 @@
 {
 	"*.{json,css,sass,scss,xml,yml,yaml,md}": ["prettier --write --ignore-unknown"],
-	"*.{js,jsx,ts,tsx}": ["prettier --write --ignore-unknown", "eslint --quiet --fix"],
+	"*.{js,jsx,ts,tsx}": ["prettier --write --ignore-unknown", "oxlint --type-aware --fix --quiet"],
 	"*.test.{js,jsx,ts,tsx}": ["vitest related --run --passWithNoTests"]
 }

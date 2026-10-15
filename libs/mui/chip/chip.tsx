@@ -20,13 +20,12 @@ export function Chip(props: ChipProps) {
     sx,
     ...rest
   } = props;
-  const Icon = resolveChipIcon(type, withIcon);
 
   return (
     <MuiChip
       variant={variant}
       color={color}
-      icon={Icon && <Icon />}
+      icon={resolveChipIcon(type, withIcon)}
       onDelete={resolveChipDelete(type, onDelete)}
       sx={mergeSx(chipSx(type), sx)}
       {...rest}

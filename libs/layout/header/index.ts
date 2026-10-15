@@ -1,2 +1,2 @@
-export * from './userInfo';
+export * from './user-info';
 export * from './logo';

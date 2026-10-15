@@ -1,9 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { router } from './Router.tsx';
+import { router } from './router.tsx';
 import {
   AuthProvider,
   config,
+  ErrorBoundary,
   I18nProvider,
   store,
   ThemeProvider,
@@ -26,9 +27,11 @@ createRoot(document.getElementById('root')!).render(
           supportedLangs={config.languages}
           resources={config.languageResources}
         >
-          <AuthProvider>
-            <RouterProvider router={router} />
-          </AuthProvider>
+          <ErrorBoundary>
+            <AuthProvider>
+              <RouterProvider router={router} />
+            </AuthProvider>
+          </ErrorBoundary>
         </I18nProvider>
       </Provider>
     </ThemeProvider>

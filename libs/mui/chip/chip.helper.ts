@@ -1,12 +1,14 @@
 import type { ChipProps as MuiChipProps } from '@mui/material';
+import { createElement, type ReactElement } from 'react';
 import { CHIP_TYPE_ICONS } from './chip.constants';
-import type { ChipIcon, ChipType } from './chip.type';
+import type { ChipType } from './chip.type';
 
 export function resolveChipIcon(
   type: ChipType,
   withIcon: boolean,
-): ChipIcon | undefined {
-  return withIcon ? CHIP_TYPE_ICONS[type] : undefined;
+): ReactElement | undefined {
+  const icon = CHIP_TYPE_ICONS[type];
+  return withIcon && icon ? createElement(icon) : undefined;
 }
 
 // Only `delete` chips show the delete action.
